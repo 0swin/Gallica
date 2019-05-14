@@ -18,14 +18,15 @@ function setup() {
         let firstWord = title.split(regex); // VIRER LA PONCTUATION
         let finalWord = "";
         // NE GARDER QUE LES MOTS QUI FONT QUE PLUS DE X CARACTERES
-        for(let j= 0; j<firstWord.length; j++){
+        for (let j = 0; j < firstWord.length; j++) {
             let word = firstWord[j];
-            if(word.length > 2){
+            if (word.length > 2) {
                 finalWord = word;
                 break;
             }
         }
-        countPer(finalWord, dictionary)
+        console.log(finalWord.split(""))
+        // countPer(finalWord, dictionary)
     }
 
     console.log(dictionary)
