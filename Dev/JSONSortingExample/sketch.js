@@ -40,6 +40,7 @@ function setup() {
             dictionary.push(finalWord)
         }
     }
+    console.log(dictionary)
 
     // VARIABLES DESSIN
     let originx = width / 2
@@ -65,8 +66,8 @@ function setup() {
     fill(255)
     for (let j = 0; j < nbpoint; j++) {
         let angle = map(j, 0, nbpoint, 0 - HALF_PI, TWO_PI - HALF_PI)
-        let px2 = cos(angle) * (radius + 10) + originx
-        let py2 = sin(angle) * (radius + 10) + originy
+        let px2 = cos(angle) * (radius + radius / 100 * 10) + originx
+        let py2 = sin(angle) * (radius + radius / 100 * 10) + originy
         textAlign(CENTER, CENTER);
         text(alphabet[j].toUpperCase(), px2, py2)
     }
