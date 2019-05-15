@@ -1,5 +1,4 @@
 # TO DO
-- Filtrer le dataset par période (année min, année max)
 - Couleurs
 - Moins de tendaison sur les bezier
 
