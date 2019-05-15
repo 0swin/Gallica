@@ -63,7 +63,7 @@ function setup() {
     // rectMode(CENTER)
     // rect(px2, py2, 10, 10)
 
-    let word = "nicolas"
+    let word = "gallica"
     word = word.split("")
     for (let i = 0; i < word.length; i++) {
         let letterStart = alphabet.indexOf(word[i])
@@ -71,11 +71,16 @@ function setup() {
         let pxStart = cos(angleStart) * (radius) + originx
         let pyStart = sin(angleStart) * (radius) + originy
 
-        let letterEnd = alphabet.indexOf(word[i+1])
+        let letterEnd = alphabet.indexOf(word[i + 1])
         let angleEnd = map(letterEnd, 0, 26, 0 - HALF_PI, TWO_PI - HALF_PI)
         let pxEnd = cos(angleEnd) * (radius) + originx
         let pyEnd = sin(angleEnd) * (radius) + originy
-        line(pxStart, pyStart, pxEnd, pyEnd)
+
+        if (i == (word.length - 1)) {
+
+        } else {
+            line(pxStart, pyStart, pxEnd, pyEnd)
+        }
     }
 
 }
