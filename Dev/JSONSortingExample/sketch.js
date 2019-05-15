@@ -16,9 +16,12 @@ function setup() {
     for (let i = 0; i < records.length; i++) {
         let title = records[i].title
         title = title.toLowerCase()
-        title = title.replace(/[0-9]/g, "") // VIRER LES CHIFFRES
-        title = title.normalize('NFD').replace(/[\u0300-\u036f]/g, "") // VIRER LES ACCENTS
-        let firstWord = title.split(regex) // VIRER LA PONCTUATION
+        // VIRER LES CHIFFRES
+        title = title.replace(/[0-9]/g, "")
+        // VIRER LES ACCENTS
+        title = title.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+        // VIRER LA PONCTUATION
+        let firstWord = title.split(regex) 
         // NE GARDER QUE LES MOTS QUI FONT QUE PLUS DE X CARACTERES
         for (let j = 0; j < firstWord.length; j++) {
             let word = firstWord[j]
@@ -29,13 +32,14 @@ function setup() {
         }
         dictionary.push(finalWord)
     }
-    // console.log(dictionary)
 
+    // VARIABLES
     let originx = width / 2
     let originy = height / 2
     let radius = height/100*30
     let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
     let nbpoint = alphabet.length
+    let strokeOpacity = (10/records.length*255)
 
     // GENERER LE CERCLE
     noFill()
@@ -60,13 +64,16 @@ function setup() {
 
     for (let i = 0; i < dictionary.length; i++) {
         let word = dictionary[i]
+        // SPLIT CHAQUE MOT EN ARRAY DE CARACTERES
         word = word.split("")
         for (let i = 0; i < word.length; i++) {
+            // DEFINIR LES COORDONNEES D'UNE LETTRE
             let letterStart = alphabet.indexOf(word[i])
             let angleStart = map(letterStart, 0, 26, 0 - HALF_PI, TWO_PI - HALF_PI)
             let pxStart = cos(angleStart) * (radius) + originx
             let pyStart = sin(angleStart) * (radius) + originy
 
+            // DEFINIR LES COORDONNEES DE LA LETTRE SUIVANTE
             let letterEnd = alphabet.indexOf(word[i + 1])
             let angleEnd = map(letterEnd, 0, 26, 0 - HALF_PI, TWO_PI - HALF_PI)
             let pxEnd = cos(angleEnd) * (radius) + originx
@@ -75,10 +82,11 @@ function setup() {
             if (i == (word.length - 1)) {
 
             } else {
-                stroke(255, 255, 255, 4)
-                // line(pxStart, pyStart, pxEnd, pyEnd)
+                // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
+                stroke(255, 255, 255, strokeOpacity)
+                strokeWeight(2)
                 noFill()
-                bezier(pxStart, pyStart, originx, originy, originx, originy, pxEnd, pyEnd)
+                bezier(pxStart, pyStart, (pxStart+pxEnd+originx)/3, (pyStart+pyEnd+originy)/3, (pxStart+pxEnd+originx)/3, (pyStart+pyEnd+originy)/3, pxEnd, pyEnd)
             }
         }
     }
