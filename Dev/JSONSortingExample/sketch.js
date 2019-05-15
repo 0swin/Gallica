@@ -51,7 +51,7 @@ function setup() {
     // let strokeOpacity = 255
 
     // GENERER LE CERCLE
-    fill(255)
+    noFill()
     beginShape()
     for (let j = 0; j < nbpoint; j++) {
         let angle = map(j, 0, nbpoint, 0 - HALF_PI, TWO_PI - HALF_PI)
@@ -88,12 +88,12 @@ function setup() {
             let pxEnd = cos(angleEnd) * (radius) + originx
             let pyEnd = sin(angleEnd) * (radius) + originy
 
+            // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
+            stroke(255, 255, 255, strokeOpacity)
+            strokeWeight(2)
+            noFill()
+            bezier(pxStart, pyStart, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, pxEnd, pyEnd)
         }
-        // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
-        stroke(255, 255, 255, strokeOpacity)
-        strokeWeight(2)
-        noFill()
-        bezier(pxStart, pyStart, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, pxEnd, pyEnd)
     }
 }
 
