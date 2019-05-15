@@ -8,7 +8,7 @@ function preload() {
 
 function setup() {
     createCanvas(500, 500)
-    background(127)
+    background(0)
 
     records = datas.records
     let dictionary = {}
@@ -27,31 +27,59 @@ function setup() {
                 break
             }
         }
-        console.log(finalWord.split(""))
-        // countPer(finalWord, dictionary)
+        // console.log(finalWord.split(""))
     }
-}
 
-function draw() {
     let originx = width / 2
     let originy = height / 2
-    let radius = 150
+    let radius = 200
     let nbpoint = 26
+    let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
 
     // GENERER LE CERCLE
     fill(255)
     beginShape()
     for (let j = 0; j < nbpoint; j++) {
-        let angle = map(j, 0, nbpoint, 0-HALF_PI, TWO_PI-HALF_PI)
+        let angle = map(j, 0, nbpoint, 0 - HALF_PI, TWO_PI - HALF_PI)
         let px = cos(angle) * radius + originx
         let py = sin(angle) * radius + originy
         vertex(px, py)
+    }
+    endShape(CLOSE)
 
+    // PLACER L'ALPHABET AUTOUR DU CERCLE
+    fill(255)
+    for (let j = 0; j < nbpoint; j++) {
+        let angle = map(j, 0, nbpoint, 0 - HALF_PI, TWO_PI - HALF_PI)
         let px2 = cos(angle) * (radius + 10) + originx
         let py2 = sin(angle) * (radius + 10) + originy
         textAlign(CENTER, CENTER);
-        alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
-        text(alphabet[j], px2, py2)
+        text(alphabet[j].toUpperCase(), px2, py2)
     }
-    endShape(CLOSE)
+
+    // let angle = map(25, 0, 26, 0 - HALF_PI, TWO_PI - HALF_PI)
+    // let px2 = cos(angle) * (radius) + originx
+    // let py2 = sin(angle) * (radius) + originy
+    // rectMode(CENTER)
+    // rect(px2, py2, 10, 10)
+
+    let word = "nicolas"
+    word = word.split("")
+    for (let i = 0; i < word.length; i++) {
+        let letterStart = alphabet.indexOf(word[i])
+        let angleStart = map(letterStart, 0, 26, 0 - HALF_PI, TWO_PI - HALF_PI)
+        let pxStart = cos(angleStart) * (radius) + originx
+        let pyStart = sin(angleStart) * (radius) + originy
+
+        let letterEnd = alphabet.indexOf(word[i+1])
+        let angleEnd = map(letterEnd, 0, 26, 0 - HALF_PI, TWO_PI - HALF_PI)
+        let pxEnd = cos(angleEnd) * (radius) + originx
+        let pyEnd = sin(angleEnd) * (radius) + originy
+        line(pxStart, pyStart, pxEnd, pyEnd)
+    }
+
+}
+
+function draw() {
+
 }
