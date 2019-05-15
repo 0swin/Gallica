@@ -29,11 +29,11 @@ function setup() {
         }
         dictionary.push(finalWord)
     }
-    console.log(dictionary)
+    // console.log(dictionary)
 
     let originx = width / 2
     let originy = height / 2
-    let radius = 150
+    let radius = height/100*30
     let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
     let nbpoint = alphabet.length
 
@@ -76,7 +76,9 @@ function setup() {
 
             } else {
                 stroke(255, 255, 255, 4)
-                line(pxStart, pyStart, pxEnd, pyEnd)
+                // line(pxStart, pyStart, pxEnd, pyEnd)
+                noFill()
+                bezier(pxStart, pyStart, originx, originy, originx, originy, pxEnd, pyEnd)
             }
         }
     }

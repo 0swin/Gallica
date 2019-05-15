@@ -1,5 +1,7 @@
 # TO DO
 - Filtrer le dataset par période (année min, année max)
+- Couleurs
+- Moins de tendaison sur les bezier
 
 # Gallica
 ![Gallica, data visualisation, Alexandre Rivaux, 2019](http://arivaux.com/preprod/Gallica/GallicaHD.png)
