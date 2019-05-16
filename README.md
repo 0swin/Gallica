@@ -1,6 +1,5 @@
 # TO DO
 - Couleurs
-  - Couleur par segment
   - Dégradés
 - Gérer l'export svg
 - Commencer la mise en page

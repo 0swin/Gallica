@@ -48,7 +48,7 @@ function setup() {
     let radius = height / 100 * 30
     let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
     let nbpoint = alphabet.length
-    let strokeOpacity = (6 / dictionary.length * 255)
+    let strokeOpacity = (8 / dictionary.length * 255)
     // let strokeOpacity = 255
 
     // GENERER LE CERCLE
@@ -90,9 +90,17 @@ function setup() {
             let pyEnd = sin(angleEnd) * (radius) + originy
 
             // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
-            stroke(255, 255, 255, strokeOpacity)
+            // stroke(255, 255, 255, strokeOpacity)
             strokeWeight(2)
             noFill()
+
+            // COULEURS
+            let hueStart = 0
+            let hueEnd = 55
+            let nbSegments = word.length - 1
+            let color = i * (hueEnd - hueStart) / nbSegments
+            colorMode(HSB)
+            stroke(color, 100, 100, strokeOpacity / 255)
 
             // DESSINER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DESSINÉ DU TRIANGLE ENTRE LES DEUX POINTS ET L'ORIGINE DU CERCLE
             bezier(pxStart, pyStart, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, pxEnd, pyEnd)
