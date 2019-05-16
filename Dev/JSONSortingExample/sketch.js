@@ -1,4 +1,4 @@
-var url = "../../Data/periodiques-parts/gallica_videos.json"
+var url = "../../Data/gallica_videos.json"
 var datas
 var records
 
