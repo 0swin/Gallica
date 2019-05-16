@@ -21,8 +21,8 @@ function setup() {
     // background(255, 255, 255)
 
     // VARIABLES DONNEES
-    let dateMin = 1914
-    let dateMax = 1918
+    let dateMin = 1955
+    let dateMax = 1975
     // let records = datas.records
     let dictionary = []
     let regex = /\W+/
@@ -63,33 +63,7 @@ function setup() {
     let radius = height / 100 * 40
     let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
     let nbpoint = alphabet.length
-    let strokeOpacity = (25 / dictionary.length)
-
-    // for (let i = 0; i < records.length; i++) {
-    //     let date = records[i].date
-    //     date = parseDate(date)
-    //     let title = records[i].title
-    //     if (dateMin <= date && date <= dateMax) {
-    //         title = title.toLowerCase()
-    //         // VIRER LES CHIFFRES
-    //         title = title.replace(/[0-9]/g, "")
-    //         // VIRER LES ACCENTS
-    //         title = title.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
-    //         // VIRER LA PONCTUATION
-    //         let firstWord = title.split(regex)
-    //         // NE GARDER QUE LES MOTS QUI FONT QUE PLUS DE X CARACTERES
-    //         for (let j = 0; j < firstWord.length; j++) {
-    //             let word = firstWord[j]
-    //             if (word.length > 2) {
-    //                 finalWord = word
-    //                 break
-    //             }
-    //         }
-    //         dictionary.push(finalWord)
-    //         // console.log(finalWord)
-    //     }
-    // }
-    // console.log(dictionary)
+    let strokeOpacity = (25 / dictionary.length * 100)
 
     // GENERER LE CERCLE
     noFill()
@@ -132,16 +106,24 @@ function setup() {
 
             // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
             // stroke(255, 255, 255, strokeOpacity)
-            strokeWeight(scaleFactor * 2)
+            strokeWeight(scaleFactor * 1)
             noFill()
 
             // COULEURS
             let hueStart = 165
             let hueEnd = 360
             let nbSegments = word.length - 1
-            let color = hueStart + (i * (hueEnd - hueStart) / nbSegments)
-            colorMode(HSB)
-            stroke(color, 100, 100, strokeOpacity)
+
+            colorMode(RGB)
+            let rgbStart = color(0, 159, 255)
+            let rgbEnd = color(236, 47, 75)
+            let rgb = lerpColor(rgbStart, rgbEnd, (i / nbSegments))
+            rgb.setAlpha(strokeOpacity * 4)
+
+            // let color = hueStart + (i * (hueEnd - hueStart) / nbSegments)
+            // colorMode(HSB)
+            stroke(rgb)
+
 
             // DESSINER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DESSINÉ DU TRIANGLE ENTRE LES DEUX POINTS ET L'ORIGINE DU CERCLE
             if (i == (word.length - 1)) {
@@ -154,7 +136,7 @@ function setup() {
         }
     }
 
-    save("periodiques-" + dateMin + "-" + dateMax + ".png");
+    // save("periodiques-" + dateMin + "-" + dateMax + ".png");
 }
 
 function draw() {
