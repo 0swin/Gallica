@@ -50,7 +50,7 @@ function setup() {
     let radius = height / 100 * 30
     let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
     let nbpoint = alphabet.length
-    let strokeOpacity = (8 / dictionary.length * 255)
+    let strokeOpacity = (10 / dictionary.length * 255)
     // let strokeOpacity = 255
 
     // GENERER LE CERCLE
@@ -68,8 +68,8 @@ function setup() {
     fill(255)
     for (let j = 0; j < nbpoint; j++) {
         let angle = map(j, 0, nbpoint, 0 - HALF_PI, TWO_PI - HALF_PI)
-        let px2 = cos(angle) * (radius + radius / 100 * 10) + originx
-        let py2 = sin(angle) * (radius + radius / 100 * 10) + originy
+        let px2 = cos(angle) * (radius + radius / 100 + 15) + originx
+        let py2 = sin(angle) * (radius + radius / 100 + 15) + originy
         textAlign(CENTER, CENTER);
         text(alphabet[j].toUpperCase(), px2, py2)
     }
@@ -93,7 +93,7 @@ function setup() {
 
             // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
             // stroke(255, 255, 255, strokeOpacity)
-            strokeWeight(scaleFactor * 1.5)
+            strokeWeight(scaleFactor * 2)
             noFill()
 
             // COULEURS
@@ -105,8 +105,8 @@ function setup() {
             stroke(color, 75, 100, strokeOpacity / 255)
 
             // DESSINER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DESSINÉ DU TRIANGLE ENTRE LES DEUX POINTS ET L'ORIGINE DU CERCLE
-            let xTriangleCenter = (pxStart + pxEnd + originx) / 3
-            let yTriangleCenter = (pyStart + pyEnd + originy) / 3
+            let xTriangleCenter = (pxStart + pxEnd + originx) / 3 + random(30)-15
+            let yTriangleCenter = (pyStart + pyEnd + originy) / 3 + random(30)-15
             bezier(pxStart, pyStart, xTriangleCenter, yTriangleCenter, xTriangleCenter, yTriangleCenter, pxEnd, pyEnd)
         }
     }
@@ -117,9 +117,3 @@ function setup() {
 function draw() {
 
 }
-
-// function getRandomInt(min, max) {
-//     min = Math.ceil(min);
-//     max = Math.floor(max);
-//     return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
