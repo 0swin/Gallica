@@ -1,7 +1,5 @@
 # TO DO
-- Couleurs
-  - Dégradés
-- Gérer l'export svg
+- Importer les periodiques sans que le pc ne meure
 - Commencer la mise en page
 
 # Gallica

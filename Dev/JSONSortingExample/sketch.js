@@ -1,4 +1,4 @@
-var url = "../../Data/gallica_videos.json"
+var url = "../../Data/periodiques-parts/gallica_videos.json"
 var datas
 var records
 
@@ -10,10 +10,10 @@ function setup() {
     pixelDensity(2)
     let scaleFactor = 1
     createCanvas(scaleFactor * 500, scaleFactor * 500)
-    background(0)
+    background(255, 255, 255, 0)
 
     // VARIABLES DONNEES
-    let dateMin = 1990
+    let dateMin = 2000
     let dateMax = 2019
     let records = datas.records
     let dictionary = []
@@ -40,6 +40,7 @@ function setup() {
                 }
             }
             dictionary.push(finalWord)
+            // console.log(finalWord)
         }
     }
     console.log(dictionary)
@@ -47,14 +48,15 @@ function setup() {
     // VARIABLES DESSIN
     let originx = width / 2
     let originy = height / 2
-    let radius = height / 100 * 30
+    let radius = height / 100 * 45
     let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
     let nbpoint = alphabet.length
-    let strokeOpacity = (10 / dictionary.length * 255)
+    let strokeOpacity = (25 / dictionary.length * 255)
     // let strokeOpacity = 255
 
     // GENERER LE CERCLE
     noFill()
+    noStroke()
     beginShape()
     for (let j = 0; j < nbpoint; j++) {
         let angle = map(j, 0, nbpoint, 0 - HALF_PI, TWO_PI - HALF_PI)
@@ -65,7 +67,7 @@ function setup() {
     endShape(CLOSE)
 
     // PLACER L'ALPHABET AUTOUR DU CERCLE
-    fill(255)
+    fill(0)
     for (let j = 0; j < nbpoint; j++) {
         let angle = map(j, 0, nbpoint, 0 - HALF_PI, TWO_PI - HALF_PI)
         let px2 = cos(angle) * (radius + radius / 100 + 15) + originx
@@ -93,25 +95,29 @@ function setup() {
 
             // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
             // stroke(255, 255, 255, strokeOpacity)
-            strokeWeight(scaleFactor * 2)
+            strokeWeight(scaleFactor * 1.5)
             noFill()
 
             // COULEURS
-            let hueStart = 174
-            let hueEnd = 304
+            let hueStart = 150
+            let hueEnd = 360
             let nbSegments = word.length - 1
             let color = hueStart + (i * (hueEnd - hueStart) / nbSegments)
             colorMode(HSB)
-            stroke(color, 75, 100, strokeOpacity / 255)
+            stroke(color, 100, 100, strokeOpacity / 255)
 
             // DESSINER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DESSINÉ DU TRIANGLE ENTRE LES DEUX POINTS ET L'ORIGINE DU CERCLE
-            let xTriangleCenter = (pxStart + pxEnd + originx) / 3 + random(30)-15
-            let yTriangleCenter = (pyStart + pyEnd + originy) / 3 + random(30)-15
-            bezier(pxStart, pyStart, xTriangleCenter, yTriangleCenter, xTriangleCenter, yTriangleCenter, pxEnd, pyEnd)
+            if (i == (word.length - 1)) {
+
+            } else {
+                let xTriangleCenter = (pxStart + pxEnd + originx) / 3 + random(30) - 15
+                let yTriangleCenter = (pyStart + pyEnd + originy) / 3 + random(30) - 15
+                bezier(pxStart, pyStart, xTriangleCenter, yTriangleCenter, xTriangleCenter, yTriangleCenter, pxEnd, pyEnd)
+            }
         }
     }
 
-    // save("image" + ".png");
+    // save("image-" + dateMin + "-" + dateMax + ".png");
 }
 
 function draw() {
