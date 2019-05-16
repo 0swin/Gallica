@@ -1,6 +1,6 @@
 # TO DO
-- Importer les periodiques sans que le pc ne meure
-- Commencer la mise en page
+- Mise en page
+- Presentation
 
 # Gallica
 ![Gallica, data visualisation, Alexandre Rivaux, 2019](http://arivaux.com/preprod/Gallica/GallicaHD.png)

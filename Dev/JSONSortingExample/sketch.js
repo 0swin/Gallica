@@ -1,58 +1,95 @@
-var url = "../../Data/gallica_videos.json"
+var urls = []
+
+var datasArray = []
 var datas
 var records
 
 function preload() {
-    datas = loadJSON(url)
+    for (let i = 0; i < 1; i++) {
+        let url = "../../Data/periodiques-parts/gallica_periodiques" + i + ".json"
+        urls.push(url);
+        let datas = loadJSON(url)
+        datasArray.push(datas);
+    }
+    console.log(datasArray);
 }
 
 function setup() {
     pixelDensity(2)
     let scaleFactor = 1
     createCanvas(scaleFactor * 500, scaleFactor * 500)
-    background(255, 255, 255, 0)
+    // background(255, 255, 255)
 
     // VARIABLES DONNEES
-    let dateMin = 2000
-    let dateMax = 2019
-    let records = datas.records
+    let dateMin = 1914
+    let dateMax = 1918
+    // let records = datas.records
     let dictionary = []
     let regex = /\W+/
 
-    for (let i = 0; i < records.length; i++) {
-        let date = records[i].date
-        date = parseDate(date)
-        let title = records[i].title
-        if (dateMin <= date && date <= dateMax) {
-            title = title.toLowerCase()
-            // VIRER LES CHIFFRES
-            title = title.replace(/[0-9]/g, "")
-            // VIRER LES ACCENTS
-            title = title.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
-            // VIRER LA PONCTUATION
-            let firstWord = title.split(regex)
-            // NE GARDER QUE LES MOTS QUI FONT QUE PLUS DE X CARACTERES
-            for (let j = 0; j < firstWord.length; j++) {
-                let word = firstWord[j]
-                if (word.length > 2) {
-                    finalWord = word
-                    break
+    for (let k = 0; k < datasArray.length; k++) {
+        let data = datasArray[k];
+        let records = data.records;
+        for (let i = 0; i < records.length; i++) {
+            let date = records[i].date
+            date = parseDate(date)
+            let title = records[i].title
+            if (dateMin <= date && date <= dateMax) {
+                title = title.toLowerCase()
+                // VIRER LES CHIFFRES
+                title = title.replace(/[0-9]/g, "")
+                // VIRER LES ACCENTS
+                title = title.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+                // VIRER LA PONCTUATION
+                let firstWord = title.split(regex)
+                // NE GARDER QUE LES MOTS QUI FONT QUE PLUS DE X CARACTERES
+                for (let j = 0; j < firstWord.length; j++) {
+                    let word = firstWord[j]
+                    if (word.length > 2) {
+                        finalWord = word
+                        break
+                    }
                 }
+                dictionary.push(finalWord)
+                // console.log(finalWord)
             }
-            dictionary.push(finalWord)
-            // console.log(finalWord)
         }
     }
-    console.log(dictionary)
+    console.log(dictionary);
 
     // VARIABLES DESSIN
     let originx = width / 2
     let originy = height / 2
-    let radius = height / 100 * 45
+    let radius = height / 100 * 40
     let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
     let nbpoint = alphabet.length
-    let strokeOpacity = (25 / dictionary.length * 255)
-    // let strokeOpacity = 255
+    let strokeOpacity = (25 / dictionary.length)
+
+    // for (let i = 0; i < records.length; i++) {
+    //     let date = records[i].date
+    //     date = parseDate(date)
+    //     let title = records[i].title
+    //     if (dateMin <= date && date <= dateMax) {
+    //         title = title.toLowerCase()
+    //         // VIRER LES CHIFFRES
+    //         title = title.replace(/[0-9]/g, "")
+    //         // VIRER LES ACCENTS
+    //         title = title.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+    //         // VIRER LA PONCTUATION
+    //         let firstWord = title.split(regex)
+    //         // NE GARDER QUE LES MOTS QUI FONT QUE PLUS DE X CARACTERES
+    //         for (let j = 0; j < firstWord.length; j++) {
+    //             let word = firstWord[j]
+    //             if (word.length > 2) {
+    //                 finalWord = word
+    //                 break
+    //             }
+    //         }
+    //         dictionary.push(finalWord)
+    //         // console.log(finalWord)
+    //     }
+    // }
+    // console.log(dictionary)
 
     // GENERER LE CERCLE
     noFill()
@@ -67,7 +104,7 @@ function setup() {
     endShape(CLOSE)
 
     // PLACER L'ALPHABET AUTOUR DU CERCLE
-    fill(0)
+    fill(255)
     for (let j = 0; j < nbpoint; j++) {
         let angle = map(j, 0, nbpoint, 0 - HALF_PI, TWO_PI - HALF_PI)
         let px2 = cos(angle) * (radius + radius / 100 + 15) + originx
@@ -95,29 +132,29 @@ function setup() {
 
             // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
             // stroke(255, 255, 255, strokeOpacity)
-            strokeWeight(scaleFactor * 1.5)
+            strokeWeight(scaleFactor * 2)
             noFill()
 
             // COULEURS
-            let hueStart = 150
+            let hueStart = 165
             let hueEnd = 360
             let nbSegments = word.length - 1
             let color = hueStart + (i * (hueEnd - hueStart) / nbSegments)
             colorMode(HSB)
-            stroke(color, 100, 100, strokeOpacity / 255)
+            stroke(color, 100, 100, strokeOpacity)
 
             // DESSINER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DESSINÉ DU TRIANGLE ENTRE LES DEUX POINTS ET L'ORIGINE DU CERCLE
             if (i == (word.length - 1)) {
 
             } else {
-                let xTriangleCenter = (pxStart + pxEnd + originx) / 3 + random(30) - 15
-                let yTriangleCenter = (pyStart + pyEnd + originy) / 3 + random(30) - 15
+                let xTriangleCenter = (pxStart + pxEnd + originx) / 3 + random(40) - 20
+                let yTriangleCenter = (pyStart + pyEnd + originy) / 3 + random(40) - 20
                 bezier(pxStart, pyStart, xTriangleCenter, yTriangleCenter, xTriangleCenter, yTriangleCenter, pxEnd, pyEnd)
             }
         }
     }
 
-    // save("image-" + dateMin + "-" + dateMax + ".png");
+    save("periodiques-" + dateMin + "-" + dateMax + ".png");
 }
 
 function draw() {
