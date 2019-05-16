@@ -7,7 +7,9 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(500, 500)
+    pixelDensity(2)
+    let scaleFactor = 1
+    createCanvas(scaleFactor * 500, scaleFactor * 500)
     background(0)
 
     // VARIABLES DONNEES
@@ -91,23 +93,33 @@ function setup() {
 
             // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
             // stroke(255, 255, 255, strokeOpacity)
-            strokeWeight(2)
+            strokeWeight(scaleFactor * 1.5)
             noFill()
 
             // COULEURS
-            let hueStart = 0
-            let hueEnd = 55
+            let hueStart = 174
+            let hueEnd = 304
             let nbSegments = word.length - 1
-            let color = i * (hueEnd - hueStart) / nbSegments
+            let color = hueStart + (i * (hueEnd - hueStart) / nbSegments)
             colorMode(HSB)
-            stroke(color, 100, 100, strokeOpacity / 255)
+            stroke(color, 75, 100, strokeOpacity / 255)
 
             // DESSINER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DESSINÉ DU TRIANGLE ENTRE LES DEUX POINTS ET L'ORIGINE DU CERCLE
-            bezier(pxStart, pyStart, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, pxEnd, pyEnd)
+            let xTriangleCenter = (pxStart + pxEnd + originx) / 3
+            let yTriangleCenter = (pyStart + pyEnd + originy) / 3
+            bezier(pxStart, pyStart, xTriangleCenter, yTriangleCenter, xTriangleCenter, yTriangleCenter, pxEnd, pyEnd)
         }
     }
+
+    // save("image" + ".png");
 }
 
 function draw() {
 
 }
+
+// function getRandomInt(min, max) {
+//     min = Math.ceil(min);
+//     max = Math.floor(max);
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
