@@ -105,7 +105,6 @@ function setup() {
             let pyEnd = sin(angleEnd) * (radius) + originy
 
             // TRACER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DU TRIANGLE Lettre1/Lettre2/OrigineDuCercle
-            // stroke(255, 255, 255, strokeOpacity)
             strokeWeight(scaleFactor * 1)
             noFill()
 
@@ -121,9 +120,7 @@ function setup() {
             rgb.setAlpha(strokeOpacity * 4)
 
             // let color = hueStart + (i * (hueEnd - hueStart) / nbSegments)
-            // colorMode(HSB)
             stroke(rgb)
-
 
             // DESSINER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DESSINÉ DU TRIANGLE ENTRE LES DEUX POINTS ET L'ORIGINE DU CERCLE
             if (i == (word.length - 1)) {
@@ -135,10 +132,8 @@ function setup() {
             }
         }
     }
-
-    // save("periodiques-" + dateMin + "-" + dateMax + ".png");
+    save("periodiques-" + dateMin + "-" + dateMax + ".png");
 }
 
 function draw() {
-
 }
