@@ -93,6 +93,8 @@ function setup() {
             stroke(255, 255, 255, strokeOpacity)
             strokeWeight(2)
             noFill()
+
+            // DESSINER UNE COURBE DE BEZIER DONT LES TANGENTES TENDENT VERS LE CENTRE DE GRAVITE DESSINÉ DU TRIANGLE ENTRE LES DEUX POINTS ET L'ORIGINE DU CERCLE
             bezier(pxStart, pyStart, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, (pxStart + pxEnd + originx) / 3, (pyStart + pyEnd + originy) / 3, pxEnd, pyEnd)
         }
     }
