@@ -1,6 +1,9 @@
 # TO DO
 - Couleurs
-- Moins de tendaison sur les bezier
+  - Couleur par segment
+  - Dégradés
+- Gérer l'export svg
+- Commencer la mise en page
 
 # Gallica
 ![Gallica, data visualisation, Alexandre Rivaux, 2019](http://arivaux.com/preprod/Gallica/GallicaHD.png)
