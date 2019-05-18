@@ -1,7 +1,3 @@
-# TO DO
-- Mise en page
-- Presentation
-
 # Gallica
 ![Gallica, data visualisation, Alexandre Rivaux, 2019](http://arivaux.com/preprod/Gallica/GallicaHD.png)
 
